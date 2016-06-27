@@ -43,9 +43,10 @@
         event.stopPropagation();
         event.preventDefault();
   
-        //if (isWebBluetoothEnabled()) {
+        if (navigator.bluetooth) {
+          alert("Bluetooth!");
         //  onButtonClick();
-        //}
+        }
       });
     </script>
 
