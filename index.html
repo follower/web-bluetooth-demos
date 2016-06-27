@@ -90,12 +90,7 @@
           console.log('Device is disconnected.');
         }
       }
-  
-      function doSetBrightness(thePendant) {
-        let newBrightnessLevel = new Uint8Array([1]);
-        thePendant.writeBrightness(newBrightnessLevel);
-      }
-  
+
       var myelinHeartPendant = new MyelinHeartPendant();
 
       document.querySelector('button').addEventListener('click', function() {
