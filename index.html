@@ -76,6 +76,18 @@
           }
         }
         
+        readColour() {
+          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
+          .then(service => service.getCharacteristic("00001525-1212-efde-1523-785feabcd142"))
+          .then(characteristic => characteristic.readValue());
+        }
+
+        writeColour(data) {
+          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
+          .then(service => service.getCharacteristic("00001525-1212-efde-1523-785feabcd142"))
+          .then(characteristic => characteristic.writeValue(data));
+        }
+
         readBrightness() {
           return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
           .then(service => service.getCharacteristic("00001526-1212-efde-1523-785feabcd142"))
