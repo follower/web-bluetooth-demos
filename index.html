@@ -97,17 +97,21 @@
 
       var myelinHeartPendant = new MyelinHeartPendant();
 
-      document.querySelector('#btn_set_brightness').addEventListener('click', function() {
-
+      document.querySelector('#btn_request_device').addEventListener('click', function() {
         if (!navigator.bluetooth) {
           alert("No Bluetooth. :(");
           return;
         }
-        
+
+        // TODO: Deactive other buttons until this succeeds?
+        myelinHeartPendant.request();
+      });
+
+      document.querySelector('#btn_set_brightness').addEventListener('click', function() {
+
         let new_brightness = document.querySelector('#brightness').value;
 
-        myelinHeartPendant.request()
-        .then(_ => myelinHeartPendant.connect())
+        myelinHeartPendant.connect()
         .then(_ => {return myelinHeartPendant.writeBrightness(new Uint8Array([new_brightness]));})
         .then(_ => myelinHeartPendant.disconnect())
         .catch(error => { console.log(error) });
