@@ -110,7 +110,7 @@
         
         myelinHeartPendant.request()
         .then(_ => myelinHeartPendant.connect())
-        .then(_ => myelinHeartPendant.writeBrightness(new Uint8Array([1])))
+        .then(_ => {return myelinHeartPendant.writeBrightness(new Uint8Array([1]));})
         .then(_ => myelinHeartPendant.disconnect())
         .catch(error => { console.log(error) });
       });    
