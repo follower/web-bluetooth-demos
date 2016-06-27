@@ -94,6 +94,11 @@
         }
       }
   
+      function doSetBrightness(thePendant) {
+        let newBrightnessLevel = new Uint8Array([1]);
+        thePendant.writeBrightness(newBrightnessLevel);
+      }
+  
       var myelinHeartPendant = new MyelinHeartPendant();
 
       document.querySelector('button').addEventListener('click', function() {
@@ -105,7 +110,7 @@
         
         myelinHeartPendant.request()
         .then(_ => myelinHeartPendant.connect())
-        .then(_ => { /* Do something with myelinHeartPendant */})
+        .then(_ => { doSetBrightness(myelinHeartPendant)})
         .catch(error => { console.log(error) });
       });    
     
