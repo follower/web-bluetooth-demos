@@ -161,6 +161,24 @@
         .catch(error => { console.log(error) });
       });    
 
+      // via <http://www.javascripter.net/faq/hextorgb.htm>
+      function cutHex(h) { return (h.charAt(0)=="#") ? h.substring(1,7) : h}
+      function hexToR(h) { return parseInt((cutHex(h)).substring(0,2),16) }
+      function hexToG(h) { return parseInt((cutHex(h)).substring(2,4),16) }
+      function hexToB(h) { return parseInt((cutHex(h)).substring(4,6),16) }
+
+      document.querySelector('#btn_set_colour').addEventListener('click', function() {
+
+        let new_colour = document.querySelector('#colour').value;
+        let new_colour_triple = [hexToR(new_colour), hexToG(new_colour), hexToB(new_colour)];
+
+        myelinHeartPendant.connect()
+        .then(_ => {return myelinHeartPendant.writeColour(new Uint8Array(new_colour_triple));})
+        .then(_ => myelinHeartPendant.disconnect())
+        .catch(error => { console.log(error) });
+
+      });
+
     </script>
 
 
