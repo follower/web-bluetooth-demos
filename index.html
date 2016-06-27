@@ -39,17 +39,76 @@
     </div>
     
     <script>
-      document.querySelector('form').addEventListener('submit', function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-  
-        if (navigator.bluetooth) {
-          alert("Bluetooth!");
-        //  onButtonClick();
-        } else {
-          alert("No Bluetooth. :(");
+    
+      class MyelinHeartPendant {
+      
+        constructor() {
+          this.device = null;
+          this.onDisconnected = this.onDisconnected.bind(this);
         }
-      });
+      
+        request() {
+          let options = {
+            "filters": [{
+              "services": ["00001523-1212-efde-1523-785feabcd142"]
+            }]
+          };
+          return navigator.bluetooth.requestDevice(options)
+          .then(device => {
+            this.device = device;
+            this.device.addEventListener('gattserverdisconnected', this.onDisconnected);
+            return device;
+          });
+        }
+      
+        connect() {
+          if (!this.device) {
+            return Promise.reject('Device is not connected.');
+          } else {
+            return this.device.gatt.connect();
+          }
+        }
+        
+        readBrightness() {
+          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
+          .then(service => service.getCharacteristic("00001526-1212-efde-1523-785feabcd142"))
+          .then(characteristic => characteristic.readValue());
+        }
+      
+        writeBrightness(data) {
+          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
+          .then(service => service.getCharacteristic("00001526-1212-efde-1523-785feabcd142"))
+          .then(characteristic => characteristic.writeValue(data));
+        }
+      
+        disconnect() {
+          if (!this.device) {
+            return Promise.reject('Device is not connected.');
+          } else {
+            return this.device.gatt.disconnect();
+          }
+        }
+      
+        onDisconnected() {
+          console.log('Device is disconnected.');
+        }
+      }
+  
+      var myelinHeartPendant = new MyelinHeartPendant();
+
+      document.querySelector('button').addEventListener('click', function() {
+
+        if (!navigator.bluetooth) {
+          alert("No Bluetooth. :(");
+          return;
+        }
+        
+        myelinHeartPendant.request()
+        .then(_ => myelinHeartPendant.connect())
+        .then(_ => { /* Do something with myelinHeartPendant */})
+        .catch(error => { console.log(error) });
+      });    
+    
     </script>
 
 
