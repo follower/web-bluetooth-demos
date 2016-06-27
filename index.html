@@ -32,7 +32,7 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <input id="brightness" type="range" min="0" max="255" value="10">
-        <button>Set brightness</button>
+        <button id="btn_set_brightness">Set brightness</button>
       </section>
     </div>
     
@@ -94,7 +94,7 @@
 
       var myelinHeartPendant = new MyelinHeartPendant();
 
-      document.querySelector('button').addEventListener('click', function() {
+      document.querySelector('#btn_set_brightness').addEventListener('click', function() {
 
         if (!navigator.bluetooth) {
           alert("No Bluetooth. :(");
