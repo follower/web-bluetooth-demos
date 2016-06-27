@@ -84,6 +84,18 @@
           .then(characteristic => characteristic.writeValue(data));
         }
       
+        readDisplayMode() {
+          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
+          .then(service => service.getCharacteristic("00001527-1212-efde-1523-785feabcd142"))
+          .then(characteristic => characteristic.readValue());
+        }
+
+        writeDisplayMode(data) {
+          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
+          .then(service => service.getCharacteristic("00001527-1212-efde-1523-785feabcd142"))
+          .then(characteristic => characteristic.writeValue(data));
+        }
+
         disconnect() {
           if (!this.device) {
             return Promise.reject('Device is not connected.');
