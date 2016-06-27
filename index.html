@@ -125,6 +125,16 @@
         myelinHeartPendant.request();
       });
 
+      document.querySelector('#btn_set_display_mode').addEventListener('click', function() {
+
+        let new_display_mode = document.querySelector('#display_mode').value;
+
+        myelinHeartPendant.connect()
+        .then(_ => {return myelinHeartPendant.writeDisplayMode(new Uint8Array([new_display_mode]));})
+        .then(_ => myelinHeartPendant.disconnect())
+        .catch(error => { console.log(error) });
+      });
+
       document.querySelector('#btn_set_brightness').addEventListener('click', function() {
 
         let new_brightness = document.querySelector('#brightness').value;
