@@ -59,7 +59,7 @@
                         "filters": [{
               "services": ["0000bb03-0000-1000-8000-00805f9b34fb"]
             }],
-            "optionalServices": ["f000bb0304514000b000000000000000"]
+            "optionalServices": ["f000bb03-04514-000b-000000000000000"]
           };
           return navigator.bluetooth.requestDevice(options)
           .then(device => {
@@ -78,13 +78,13 @@
         }
         
         readInfo() {
-          return this.device.gatt.getPrimaryService("f000bb0304514000b000000000000000")
+          return this.device.gatt.getPrimaryService("f000bb03-04514-000b-000000000000000")
           .then(service => service.getCharacteristic("f000c000-0451-4000-b000-000000000000"))
           .then(characteristic => characteristic.readValue());
         }
         
         writeCommand(data) {
-          return this.device.gatt.getPrimaryService("f000bb0304514000b000000000000000")
+          return this.device.gatt.getPrimaryService("f000bb03-04514-000b-000000000000000")
           .then(service => service.getCharacteristic("f000c000-0451-4000-b000-000000000000"))
           .then(characteristic => characteristic.writeValue(data));
         }
