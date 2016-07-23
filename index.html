@@ -83,7 +83,7 @@
         }
         
         writeCommand(data) {
-          return this.device.gatt.getPrimaryService("0000bb03")
+          return this.device.gatt.getPrimaryService("0000bb03-0000-1000-8000-00805f9b34fb")
           .then(service => service.getCharacteristic("f000c000-0451-4000-b000-000000000000"))
           .then(characteristic => characteristic.writeValue(data));
         }
