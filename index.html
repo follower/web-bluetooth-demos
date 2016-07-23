@@ -58,7 +58,8 @@
           let options = {
                         "filters": [{
               "services": ["0000bb03-0000-1000-8000-00805f9b34fb"]
-            }]
+            }],
+            "optionalServices": ["0000bb03-0000-1000-8000-00805f9b34fb"]
           };
           return navigator.bluetooth.requestDevice(options)
           .then(device => {
