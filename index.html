@@ -57,10 +57,10 @@
         request() {
           let options = {
             "filters": [{
-              "services": ["0xbb03"]
+              "services": ["f000bb03-0451-4000-b000-000000000000"]
             }]
           };
-          return navigator.bluetooth.requestDevice(options)
+          return navigator.bluetooth.requestDevice()
           .then(device => {
             this.device = device;
             this.device.addEventListener('gattserverdisconnected', this.onDisconnected);
