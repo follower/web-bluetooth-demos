@@ -35,7 +35,10 @@
           <button id="btn_request_device">Request device</button>
         </div>
         <div>
-          <button id="btn_sync_pulse">Vibrate</button>
+          <button id="btn_sync_pulse">Sync Pulse</button>
+        </div>
+        <div>
+          <button id="btn_vibe_command">Vibrate</button>
         </div>
       </section>
     </div>
@@ -119,8 +122,15 @@
         weVibe.connect()
         .then(_ => {return weVibe.writeCommand(new Uint8Array([30, 32, 45, 0, 0, 0, 0, 0]));})
         .then(_ => weVibe.disconnect())
-        //.catch(error => { console.log(error) })
-        ;
+        .catch(error => { console.log(error) });
+      });
+      
+      document.querySelector('#btn_vibe_command').addEventListener('click', function() {
+
+        weVibe.connect()
+        .then(_ => {return weVibe.writeCommand(new Uint8Array([15, 9, null, 0, null, null, null, null]));})
+        .then(_ => weVibe.disconnect())
+        .catch(error => { console.log(error) });
       });
 
     </script>
