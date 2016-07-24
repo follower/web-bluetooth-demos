@@ -41,12 +41,13 @@
           <button id="btn_chachacha">Chachacha</button>
         </div>
         <div>
-         <select>
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="mercedes">Mercedes</option>
-  <option value="audi">Audi</option>
-</select> 
+        <form action="/cgi-bin/dropdown.cgi" method="post">
+<select name="dropdown">
+<option value="Data Structures" selected>Data Structures</option>
+<option value="Data Mining">Data Mining</option>
+</select>
+<input type="submit" value="Submit" />
+</form>
 </div>
         <div>
           <button id="btn_vibe_command">Vibrate</button>
