@@ -41,6 +41,14 @@
           <button id="btn_chachacha">Chachacha</button>
         </div>
         <div>
+         <select>
+  <option value="volvo">Volvo</option>
+  <option value="saab">Saab</option>
+  <option value="mercedes">Mercedes</option>
+  <option value="audi">Audi</option>
+</select> 
+</div>
+        <div>
           <button id="btn_vibe_command">Vibrate</button>
         </div>
       </section>
@@ -80,6 +88,10 @@
             return Promise.reject('Device is not connected.');
           } else {
             return this.device.gatt.connect();
+            weVibe.connect()
+        .then(_ => {return weVibe.writeCommand(new Uint8Array([30, 32, 45, 0, 0, 0, 0, 0]));})
+        .then(_ => weVibe.disconnect())
+        .catch(error => { console.log(error) });
           }
         }
         
