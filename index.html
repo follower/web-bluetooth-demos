@@ -89,10 +89,7 @@
             return Promise.reject('Device is not connected.');
           } else {
             return this.device.gatt.connect();
-            weVibe.connect()
-        .then(_ => {return weVibe.writeCommand(new Uint8Array([30, 32, 45, 0, 0, 0, 0, 0]));})
-        .then(_ => weVibe.disconnect())
-        .catch(error => { console.log(error) });
+            
           }
         }
         
