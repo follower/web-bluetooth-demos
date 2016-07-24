@@ -38,6 +38,9 @@
           <button id="btn_sync_pulse">Sync Pulse</button>
         </div>
         <div>
+          <button id="btn_chachacha">Chachacha</button>
+        </div>
+        <div>
           <button id="btn_vibe_command">Vibrate</button>
         </div>
       </section>
@@ -125,10 +128,18 @@
         .catch(error => { console.log(error) });
       });
       
-      document.querySelector('#btn_vibe_command').addEventListener('click', function() {
+      document.querySelector('#btn_chachacha').addEventListener('click', function() {
 
         weVibe.connect()
         .then(_ => {return weVibe.writeCommand(new Uint8Array([15, 9, null, 0, null, null, null, null]));})
+        .then(_ => weVibe.disconnect())
+        .catch(error => { console.log(error) });
+      });
+      
+      document.querySelector('#btn_vibe_command').addEventListener('click', function() {
+
+        weVibe.connect()
+        .then(_ => {return weVibe.writeCommand(new Uint8Array([15, 9, null, 1, null, null, null, null]));})
         .then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
       });
