@@ -41,7 +41,10 @@
           <button id="btn_chachacha">Chachacha</button>
         </div>
         <div>
-          <button id="btn_down">Reduce intensity</button>
+          <button id="btn_downest">Level 1</button>
+        </div>
+        <div>
+          <button id="btn_down">Level 2</button>
         </div>
         <div>
           <button id="btn_vibe_command">Vibrate</button>
@@ -139,7 +142,7 @@
         .catch(error => { console.log(error) });
       });
       
-      document.querySelector('#btn_down').addEventListener('click', function() {
+      document.querySelector('#btn_downest').addEventListener('click', function() {
 
         weVibe.connect()
         .then(_ => {return weVibe.writeCommand(new Uint8Array([15, 9, null, 1, null, null, null, null]));})
@@ -147,10 +150,18 @@
         .catch(error => { console.log(error) });
       });
       
-      document.querySelector('#btn_vibe_command').addEventListener('click', function() {
+      document.querySelector('#btn_down').addEventListener('click', function() {
 
         weVibe.connect()
         .then(_ => {return weVibe.writeCommand(new Uint8Array([15, 9, null, 2, null, null, null, null]));})
+        .then(_ => weVibe.disconnect())
+        .catch(error => { console.log(error) });
+      });
+      
+      document.querySelector('#btn_vibe_command').addEventListener('click', function() {
+
+        weVibe.connect()
+        .then(_ => {return weVibe.writeCommand(new Uint8Array([15, 9, null, 3, null, null, null, null]));})
         .then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
       });
