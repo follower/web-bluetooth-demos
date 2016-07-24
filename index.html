@@ -161,7 +161,7 @@
       document.querySelector('#btn_vibe_command').addEventListener('click', function() {
 
         weVibe.connect()
-        .then(_ => {return weVibe.writeCommand(new Uint8Array([15, 9, null, 4, null, null, null, null]));})
+        .then(_ => {return weVibe.writeCommand(new Uint8Array([15, 9, null, 9, null, null, null, null]));})
         .then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
       });
