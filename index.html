@@ -41,13 +41,10 @@
           <button id="btn_chachacha">Chachacha</button>
         </div>
         <div>
-        <form action="click">
-<select name="dropdown">
-<option value="btn_sync_pulse" selected>Sync Pulse</option>
-<option value="btn_chachacha">Chachacha</option>
-</select>
-<input type="submit" value="Submit" />
-</form>
+<select id="selectBox" onchange="changePattern(value);">
+   <option value="sync_pulse">Sync Pulse</option>
+   <option value="chachacha">Chachacha</option>
+  </select>
 </div>
         <div>
           <button id="btn_vibe_command">Vibrate</button>
@@ -154,6 +151,19 @@
         .then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
       });
+function changePattern(pattern)  {
+  command = null;
+if (pattern == "sync_pulse")
+  command = new Uint8Array([30, 32, 45, 0, 0, 0, 0, 0]);
+ else if (pattern == "chachacha")
+  command = new Uint8Array([15, 9, null, 0, null, null, null, null]); 
+   weVibe.connect()
+        .then(_ => {return weVibe.writeCommand(command);})
+        .then(_ => weVibe.disconnect())
+        .catch(error => { console.log(error) });
+  
+}
+}
 
     </script>
 
