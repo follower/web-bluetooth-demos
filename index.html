@@ -38,19 +38,13 @@
           <button id="btn_sync_pulse">Sync Pulse</button>
         </div>
         <div>
-          <button id="btn_chachacha">Chachacha</button>
-        </div>
-        <div>
 <select id="selectBox" onchange="changePattern(value);">
-   <option value="sync_pulse">Sync Pulse</option>
+  <option value="none">None</option>
    <option value="chachacha">Chachacha</option>
+   <option value="vibrate">Vibrate</option>
+   <option value="other">Other</option>
   </select>
 </div>
-        <div>
-          <button id="btn_vibe_command">Vibrate</button>
-        </div>
-      </section>
-    </div>
     
     <script>
 
@@ -134,34 +128,23 @@
         .then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
       });
-      
-      document.querySelector('#btn_chachacha').addEventListener('click', function() {
-
-        weVibe.connect()
-        .then(_ => {return weVibe.writeCommand(new Uint8Array([15, 9, null, 0, null, null, null, null]));})
-        .then(_ => weVibe.disconnect())
-        .catch(error => { console.log(error) });
-      });
-    
-      
-      document.querySelector('#btn_vibe_command').addEventListener('click', function() {
-
-        weVibe.connect()
-        .then(_ => {return weVibe.writeCommand(new Uint8Array([15, 1, null, 0, null, null, null, null]));})
-        .then(_ => weVibe.disconnect())
-        .catch(error => { console.log(error) });
+  
       });
 function changePattern(pattern)  {
   command = null;
-if (pattern == "sync_pulse")
-  command = new Uint8Array([30, 32, 45, 0, 0, 0, 0, 0]);
+if (pattern == "none")
+  command = new Uint8Array([15, 0, null, 0, null, null, null, null]);
  else if (pattern == "chachacha")
   command = new Uint8Array([15, 9, null, 0, null, null, null, null]); 
+  else if (pattern == "vibrate")
+  command = new Uint8Array([15, 1, null, 0, null, null, null, null]); 
+   else if (pattern == "other")
+  command = new Uint8Array([15, 2, null, 0, null, null, null, null]); 
    weVibe.connect()
         .then(_ => {return weVibe.writeCommand(command);})
         .then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
-  }
+}
 
     </script>
 
