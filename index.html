@@ -38,7 +38,7 @@
           <button id="btn_sync_pulse">Sync Pulse</button>
         </div>
         <div>
-          <button id="btn_read_data">Read Info</button>
+          <button id="btn_read_data">Read Info/button>
         </div>
         <div id="info"> </div>
         <div>
@@ -90,7 +90,7 @@
         
         readInfo() {
           return this.device.gatt.getPrimaryService("f000bb03-0451-4000-b000-000000000000")
-          .then(service => service.getCharacteristic("f000c000-0451-4000-b000-000000000000"))
+          .then(service => service.getCharacteristic("f000c000-0451-4000-c000-000000000000"))
           .then(characteristic => characteristic.readValue());
         }
         
@@ -136,14 +136,14 @@
       document.querySelector('#btn_read_data').addEventListener('click', function() {
 data = null;
         weVibe.connect()
-        .then(_ => {data = weVibe.readInfo();})
+        .then(_ => {data = weVibe.readCommand());})
         .then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
         
         document.getElementById('info').innerHTML = data;
       });
   
-     
+      });
 function changePattern(pattern)  {
   command = null;
 if (pattern == "none")
