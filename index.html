@@ -136,14 +136,14 @@
       document.querySelector('#btn_read_data').addEventListener('click', function() {
 data = null;
         weVibe.connect()
-        .then(_ => {data = weVibe.readCommand());})
+        .then(_ => {data = weVibe.readCommand();})
         .then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
         
         document.getElementById('info').innerHTML = data;
       });
   
-      });
+   
 function changePattern(pattern)  {
   command = null;
 if (pattern == "none")
