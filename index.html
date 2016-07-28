@@ -135,7 +135,7 @@
       });
       
       document.querySelector('#btn_read_data').addEventListener('click', function() {
-        data = null;
+        data = 1;
         weVibe.connect()
         .then(_ => {data = weVibe.readInfo();})
         //.then(_ => weVibe.disconnect())
