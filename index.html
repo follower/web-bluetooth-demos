@@ -134,13 +134,13 @@
       });
       
       document.querySelector('#btn_read_data').addEventListener('click', function() {
-data = null;
+        data = null;
         weVibe.connect()
-        .then(_ => {data = weVibe.readInfo();})
+        .then(_ => { weVibe.readInfo();})
         .then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
-        
-        document.getElementById('info').innerHTML = data;
+        console.log(data)
+        //document.getElementById('info').innerHTML = data;
       });
   
 function changePattern(pattern)  {
