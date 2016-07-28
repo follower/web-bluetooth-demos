@@ -138,9 +138,10 @@
         data = null;
         weVibe.connect()
         .then(_ => { weVibe.readInfo();})
-        .then(_ => weVibe.disconnect())
+        //.then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
         console.log(":P");
+        console.log(data);
         //document.getElementById('info').innerHTML = data;
       });
   
@@ -156,7 +157,7 @@ if (pattern == "none")
   command = new Uint8Array([15, 2, null, 0, null, null, null, null]); 
    weVibe.connect()
         .then(_ => {return weVibe.writeCommand(command);})
-        .then(_ => weVibe.disconnect())
+        //.then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
 }
 
