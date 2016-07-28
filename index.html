@@ -56,12 +56,13 @@
       // Other references:
       //  * <https://googlechrome.github.io/samples/web-bluetooth/device-info.html>
       //  * <https://googlechrome.github.io/samples/web-bluetooth/reset-energy.html>
-console.log(":D")
+
       class WeVibe {
       
         constructor() {
           this.device = null;
           this.onDisconnected = this.onDisconnected.bind(this);
+          console.log(":D");
         }
       
         request() {
