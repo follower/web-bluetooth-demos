@@ -173,7 +173,7 @@
           
           data = new Uint8Array([15, 0, null, 0, null, null, null, null]);
           weVibe.connect()
-          .then(_ => {console.log(weVibe.readInfo();}))
+          .then(_ => {weVibe.readInfo();})
           //.then(_ => weVibe.disconnect())
           .catch(error => { console.log(error) });
           console.log(":P");
