@@ -7,7 +7,7 @@ body {
 }
 
 header {
-  margin-top: 46px;
+  margin-top: 26px;
 }
 
 main { 
@@ -15,8 +15,16 @@ main {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 1.8em;
   line-height: 1.2em;
+}
+
+h2 {
+  font-size: 1em;
+}
+
+.logo {
+  width: 50%;
 }
 
 .main-actions {
@@ -30,9 +38,7 @@ h1 {
 }
 
 .main-actions i {
-  margin-right: 5px;
-  position: relative;
-  top: 2px;
+  float: left;
 }
 
 #info-wrapper {
@@ -73,15 +79,17 @@ footer.page-footer {
 
 @media screen and (max-width: 480px) {
   body {
-    font-size:14px;
+    font-size: 14px;
   }
-
   #downloads {
     display: none;
   }
   .forkme_banner {
     padding: 3px 8px;
     background: #039be5;
+  }
+  .logo {
+    width: 40%;
   }
 
 }
