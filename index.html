@@ -162,7 +162,7 @@
         document.querySelector('#btn_read_data').addEventListener('click', function() {
           
           var self = weVibe;
-        return weVibe.readValue()
+        return weVibe.readInfo()
           .then(function(value) {
             // In Chrome 50+, a DataView is returned instead of an ArrayBuffer.
             value = value.buffer ? value : new DataView(value);
