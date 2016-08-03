@@ -161,7 +161,6 @@
         
         document.querySelector('#btn_read_data').addEventListener('click', function() {
           
-          //data = new Uint8Array([15, 0, null, 0, null, null, null, null]);
           weVibe.connect()
           .then(_ => {weVibe.writeCommand(new Uint8Array([15, 255, 0, 100, 0, 0, 0, 0]))})
           //.then(_ => weVibe.disconnect())
@@ -170,7 +169,7 @@
           console.log(weVibe.readInfo());
           data = weVibe.readInfo();
           document.getElementById('info-wrapper').style.display = ""
-          document.getElementById('info').innerHTML = data.toJSON().data;
+          document.getElementById('info').innerHTML = data;
           
           
           //});
