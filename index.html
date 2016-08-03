@@ -116,7 +116,7 @@
           
           readInfo() {
             return this.device.gatt.getPrimaryService("f000bb03-0451-4000-b000-000000000000")
-            .then(service => service.getCharacteristic("f000c000-0451-4000-b000-000000000000"))
+            .then(service => service.getCharacteristic("f000b000-0451-4000-b000-000000000000"))
             .then(characteristic => characteristic.readValue());
           }
           
@@ -163,24 +163,16 @@
           
           //data = new Uint8Array([15, 0, null, 0, null, null, null, null]);
           weVibe.connect()
-          .then(_ => {weVibe.readInfo();})
+          .then(_ => {weVibe.writeCommand(new Uint8Array([15, 255, 0, 100, 0, 0, 0, 0]))})
           //.then(_ => weVibe.disconnect())
           .catch(error => { console.log(error) });
           console.log(":P");
           console.log(weVibe.readInfo());
           data = weVibe.readInfo();
-          data = data.buffer ? data : new DataView(data);
           document.getElementById('info-wrapper').style.display = ""
           document.getElementById('info').innerHTML = data;
           
-          var self = weVibe;
-        return weVibe.readInfo()
-          .then(function(value) {
-            // In Chrome 50+, a DataView is returned instead of an ArrayBuffer.
-            value = value.buffer ? value : new DataView(value);
-            self.value = value;
-            return self.value;
-            console.log(self.value);
+          
           });
         });
     
