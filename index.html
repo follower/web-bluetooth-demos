@@ -168,8 +168,10 @@
           .catch(error => { console.log(error) });
           console.log(":P");
           console.log(weVibe.readInfo());
+          data = weVibe.readInfo();
+          data = data.buffer ? data : new DataView(data);
           document.getElementById('info-wrapper').style.display = ""
-          document.getElementById('info').innerHTML = weVibe.readInfo();
+          document.getElementById('info').innerHTML = data;
           
           var self = weVibe;
         return weVibe.readInfo()
