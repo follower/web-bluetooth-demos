@@ -161,10 +161,10 @@
         
         document.querySelector('#btn_read_data').addEventListener('click', function() {
           data = new Uint8Array([15, 0, null, 0, null, null, null, null]);
-          data = weVibe.connect()
+          console.log(weVibe.connect()
           .then(_ => {weVibe.readInfo();})
           //.then(_ => weVibe.disconnect())
-          .catch(error => { console.log(error) });
+          .catch(error => { console.log(error) });)
           console.log(":P");
           console.log(data);
           document.getElementById('info-wrapper').style.display = ""
