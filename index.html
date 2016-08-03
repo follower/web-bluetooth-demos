@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Web Bluetooth API demos for Chrome : ">
+    <meta name="description" content="Web Bluetooth API demos for Chrome - We Vibe : ">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Web Bluetooth API demos for Chrome</title>
+    <title>Web Bluetooth API demos for Chrome - We Vibe</title>
   </head>
 
   <body>
@@ -16,14 +16,14 @@
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/follower/web-bluetooth-demos">View on GitHub</a>
+          <a id="forkme_banner" href="https://github.com/goldfisk/web-bluetooth-demos">View on GitHub</a>
 
-          <h1 id="project_title">Web Bluetooth API demos for Chrome</h1>
+          <h1 id="project_title">Web Bluetooth API demos for Chrome - We Vibe</h1>
           <h2 id="project_tagline"></h2>
 
             <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/follower/web-bluetooth-demos/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/follower/web-bluetooth-demos/tarball/master">Download this project as a tar.gz file</a>
+              <a class="zip_download_link" href="https://github.com/goldfisk/web-bluetooth-demos/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/goldfisk/web-bluetooth-demos/tarball/master">Download this project as a tar.gz file</a>
             </section>
         </header>
     </div>
@@ -35,19 +35,20 @@
           <button id="btn_request_device">Request device</button>
         </div>
         <div>
-          <input id="display_mode" type="range" min="0" max="2" value="2">
-          <button id="btn_set_display_mode">Set display mode</button>
+          <button id="btn_sync_pulse">Sync Pulse</button>
         </div>
         <div>
-          <input id="brightness" type="range" min="0" max="255" value="10">
-          <button id="btn_set_brightness">Set brightness</button>
+          <button id="btn_read_data">Read Info</button>
         </div>
+        <div id="info"> </div>
         <div>
-          <input id="colour" type="color">
-          <button id="btn_set_colour">Set colour</button>
-        </div>
-      </section>
-    </div>
+<select id="selectBox" onchange="changePattern(value);">
+  <option value="none">None</option>
+   <option value="chachacha">Chachacha</option>
+   <option value="vibrate">Vibrate</option>
+   <option value="other">Other</option>
+  </select>
+</div>
     
     <script>
 
@@ -56,18 +57,20 @@
       //  * <https://googlechrome.github.io/samples/web-bluetooth/device-info.html>
       //  * <https://googlechrome.github.io/samples/web-bluetooth/reset-energy.html>
 
-      class MyelinHeartPendant {
+      class WeVibe {
       
         constructor() {
           this.device = null;
           this.onDisconnected = this.onDisconnected.bind(this);
+          console.log(":D");
         }
       
         request() {
           let options = {
-            "filters": [{
-              "services": ["00001523-1212-efde-1523-785feabcd142"]
-            }]
+                        "filters": [{
+              "services": ["0000bb03-0000-1000-8000-00805f9b34fb"]
+            }],
+            "optionalServices": ["f000bb03-0451-4000-b000-000000000000"]
           };
           return navigator.bluetooth.requestDevice(options)
           .then(device => {
@@ -82,45 +85,22 @@
             return Promise.reject('Device is not connected.');
           } else {
             return this.device.gatt.connect();
+            
           }
         }
         
-        readColour() {
-          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
-          .then(service => service.getCharacteristic("00001525-1212-efde-1523-785feabcd142"))
+        readInfo() {
+          return this.device.gatt.getPrimaryService("f000bb03-0451-4000-b000-000000000000")
+          .then(service => service.getCharacteristic("f000b000-0451-4000-b000-000000000000"))
           .then(characteristic => characteristic.readValue());
         }
-
-        writeColour(data) {
-          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
-          .then(service => service.getCharacteristic("00001525-1212-efde-1523-785feabcd142"))
+        
+        writeCommand(data) {
+          return this.device.gatt.getPrimaryService("f000bb03-0451-4000-b000-000000000000")
+          .then(service => service.getCharacteristic("f000c000-0451-4000-b000-000000000000"))
           .then(characteristic => characteristic.writeValue(data));
         }
-
-        readBrightness() {
-          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
-          .then(service => service.getCharacteristic("00001526-1212-efde-1523-785feabcd142"))
-          .then(characteristic => characteristic.readValue());
-        }
-      
-        writeBrightness(data) {
-          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
-          .then(service => service.getCharacteristic("00001526-1212-efde-1523-785feabcd142"))
-          .then(characteristic => characteristic.writeValue(data));
-        }
-      
-        readDisplayMode() {
-          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
-          .then(service => service.getCharacteristic("00001527-1212-efde-1523-785feabcd142"))
-          .then(characteristic => characteristic.readValue());
-        }
-
-        writeDisplayMode(data) {
-          return this.device.gatt.getPrimaryService("00001523-1212-efde-1523-785feabcd142")
-          .then(service => service.getCharacteristic("00001527-1212-efde-1523-785feabcd142"))
-          .then(characteristic => characteristic.writeValue(data));
-        }
-
+        
         disconnect() {
           if (!this.device) {
             return Promise.reject('Device is not connected.');
@@ -134,7 +114,7 @@
         }
       }
 
-      var myelinHeartPendant = new MyelinHeartPendant();
+      var weVibe = new WeVibe();
 
       document.querySelector('#btn_request_device').addEventListener('click', function() {
         if (!navigator.bluetooth) {
@@ -143,46 +123,43 @@
         }
 
         // TODO: Deactive other buttons until this succeeds?
-        myelinHeartPendant.request();
+        weVibe.request();
       });
 
-      document.querySelector('#btn_set_display_mode').addEventListener('click', function() {
+      document.querySelector('#btn_sync_pulse').addEventListener('click', function() {
 
-        let new_display_mode = document.querySelector('#display_mode').value;
-
-        myelinHeartPendant.connect()
-        .then(_ => {return myelinHeartPendant.writeDisplayMode(new Uint8Array([new_display_mode]));})
-        .then(_ => myelinHeartPendant.disconnect())
+        weVibe.connect()
+        .then(_ => {return weVibe.writeCommand(new Uint8Array([30, 32, 45, 0, 0, 0, 0, 0]));})
+        //.then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
       });
-
-      document.querySelector('#btn_set_brightness').addEventListener('click', function() {
-
-        let new_brightness = document.querySelector('#brightness').value;
-
-        myelinHeartPendant.connect()
-        .then(_ => {return myelinHeartPendant.writeBrightness(new Uint8Array([new_brightness]));})
-        .then(_ => myelinHeartPendant.disconnect())
+      
+      document.querySelector('#btn_read_data').addEventListener('click', function() {
+        data = 1;
+        weVibe.connect()
+        .then(_ => {data = weVibe.readInfo();})
+        //.then(_ => weVibe.disconnect())
         .catch(error => { console.log(error) });
-      });    
-
-      // via <http://www.javascripter.net/faq/hextorgb.htm>
-      function cutHex(h) { return (h.charAt(0)=="#") ? h.substring(1,7) : h}
-      function hexToR(h) { return parseInt((cutHex(h)).substring(0,2),16) }
-      function hexToG(h) { return parseInt((cutHex(h)).substring(2,4),16) }
-      function hexToB(h) { return parseInt((cutHex(h)).substring(4,6),16) }
-
-      document.querySelector('#btn_set_colour').addEventListener('click', function() {
-
-        let new_colour = document.querySelector('#colour').value;
-        let new_colour_triple = [hexToR(new_colour), hexToG(new_colour), hexToB(new_colour)];
-
-        myelinHeartPendant.connect()
-        .then(_ => {return myelinHeartPendant.writeColour(new Uint8Array(new_colour_triple));})
-        .then(_ => myelinHeartPendant.disconnect())
-        .catch(error => { console.log(error) });
-
+        console.log(":P");
+        console.log(data);
+        document.getElementById('info').innerHTML = data;
       });
+  
+function changePattern(pattern)  {
+  command = null;
+if (pattern == "none")
+  command = new Uint8Array([15, 0, null, 0, null, null, null, null]);
+ else if (pattern == "chachacha")
+  command = new Uint8Array([15, 9, null, 0, null, null, null, null]); 
+  else if (pattern == "vibrate")
+  command = new Uint8Array([15, 1, null, 0, null, null, null, null]); 
+   else if (pattern == "other")
+  command = new Uint8Array([15, 2, null, 0, null, null, null, null]); 
+   weVibe.connect()
+        .then(_ => {return weVibe.writeCommand(command);})
+        //.then(_ => weVibe.disconnect())
+        .catch(error => { console.log(error) });
+}
 
     </script>
 
@@ -190,7 +167,7 @@
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Web Bluetooth API demos for Chrome maintained by <a href="https://github.com/follower">follower</a></p>
+        <p class="copyright">Web Bluetooth API demos for Chrome - We Vibe maintained by <a href="https://github.com/goldfisk">goldfisk</a></p>
         <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
