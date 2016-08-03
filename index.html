@@ -160,6 +160,17 @@
         });
         
         document.querySelector('#btn_read_data').addEventListener('click', function() {
+          
+          var self = weVibe;
+        return weVibe._characteristic.readValue()
+          .then(function(value) {
+            // In Chrome 50+, a DataView is returned instead of an ArrayBuffer.
+            value = value.buffer ? value : new DataView(value);
+            self.value = value;
+            return self.value;
+            console.log(self.value);
+          });
+          
           data = new Uint8Array([15, 0, null, 0, null, null, null, null]);
           weVibe.connect()
           .then(_ => {console.log(weVibe.readInfo();}))
