@@ -1,0 +1,87 @@
+body {
+  color: #444;
+  background: #fff;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+header {
+  margin-top: 46px;
+}
+
+main { 
+  flex: 1 0 auto; 
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.2em;
+}
+
+.main-actions {
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+}
+
+.main-actions button, .main-actions select { 
+  width: 80%; 
+  margin-bottom: 5px;
+}
+
+.main-actions i {
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
+}
+
+#info-wrapper {
+  background: #f2f2f2;
+  padding: 10px;
+  width: 80%;
+  display: block;
+  font-family: courier;
+  margin: auto;
+}
+
+#downloads i {
+  font-size: 48px;
+  display: block;
+}
+
+
+.forkme_banner {
+  display: block;
+  position: absolute;
+  top:0;
+  right: 10px;
+  z-index: 10;
+  padding: 10px 50px 10px 10px;
+  color: #fff;
+  background: url('../images/blacktocat.png') #039be5 no-repeat 95% 50%;
+  font-weight: 700;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+footer.page-footer {
+  background: #f2f2f2;
+  padding: 20px;
+  font-size: .8em;
+  text-align: center;
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    font-size:14px;
+  }
+
+  #downloads {
+    display: none;
+  }
+  .forkme_banner {
+    padding: 3px 8px;
+    background: #039be5;
+  }
+
+}
