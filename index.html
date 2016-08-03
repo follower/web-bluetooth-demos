@@ -117,7 +117,7 @@
           readInfo() {
             return this.device.gatt.getPrimaryService("f000bb03-0451-4000-b000-000000000000")
             .then(service => service.getCharacteristic("f000b000-0451-4000-b000-000000000000"))
-            .then(characteristic => return characteristic.readValue());
+            .then(characteristic => characteristic.readValue());
           }
           
           writeCommand(data) {
@@ -160,7 +160,7 @@
         });
         
         document.querySelector('#btn_read_data').addEventListener('click', function() {
-          data = 1;
+          data = new Uint8Array([15, 0, null, 0, null, null, null, null]);
           weVibe.connect()
           .then(_ => {data = weVibe.readInfo();})
           //.then(_ => weVibe.disconnect())
