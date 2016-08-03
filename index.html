@@ -115,9 +115,9 @@
           }
           
           readInfo() {
-            return console.log(this.device.gatt.getPrimaryService("f000bb03-0451-4000-b000-000000000000")
+            return this.device.gatt.getPrimaryService("f000bb03-0451-4000-b000-000000000000")
             .then(service => service.getCharacteristic("f000c000-0451-4000-b000-000000000000"))
-            .then(characteristic => characteristic.readValue());)
+            .then(characteristic => characteristic.readValue());
           }
           
           writeCommand(data) {
@@ -161,6 +161,16 @@
         
         document.querySelector('#btn_read_data').addEventListener('click', function() {
           
+          //data = new Uint8Array([15, 0, null, 0, null, null, null, null]);
+          weVibe.connect()
+          .then(_ => {weVibe.readInfo();})
+          //.then(_ => weVibe.disconnect())
+          .catch(error => { console.log(error) });
+          console.log(":P");
+          console.log(weVibe.readInfo(););
+          document.getElementById('info-wrapper').style.display = ""
+          document.getElementById('info').innerHTML = data;
+          
           var self = weVibe;
         return weVibe.readInfo()
           .then(function(value) {
@@ -170,16 +180,6 @@
             return self.value;
             console.log(self.value);
           });
-          
-          data = new Uint8Array([15, 0, null, 0, null, null, null, null]);
-          weVibe.connect()
-          .then(_ => {weVibe.readInfo();})
-          //.then(_ => weVibe.disconnect())
-          .catch(error => { console.log(error) });
-          console.log(":P");
-          console.log(data);
-          document.getElementById('info-wrapper').style.display = ""
-          document.getElementById('info').innerHTML = data;
         });
     
   function changePattern(pattern)  {
